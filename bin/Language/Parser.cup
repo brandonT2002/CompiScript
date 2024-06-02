@@ -1,0 +1,33 @@
+// 1. Package e importanciones
+package Language;
+import java_cup.runtime.*;
+
+// 2. Codigo para el parser, variables y metodos
+
+parser code
+{:
+
+:}
+
+// 3. Terminales
+terminal String RW_int, RW_double, RW_bool, RW_char, RW_str;
+terminal String RW_true, RW_false, RW_pow, RW_new;
+terminal String RW_if, RW_else, RW_switch, RW_case, RW_default, RW_while, RW_for, RW_do;
+terminal String RW_break, RW_continue, RW_return;
+terminal String RW_void, RW_cout, RW_endl, RW_tolower, RW_toupper, RW_round, RW_length, RW_typeof, RW_tostring, RW_c_str, RW_execute;
+terminal String TK_string, TK_char, TK_int, TK_double;
+terminal String TK_inc, TK_dec, TK_add, TK_sub;
+terminal String TK_plus, TK_minus, TK_mult, TK_div, TK_mod;
+terminal String TK_equequ, TK_notequ, TK_lessequ, TK_moreequ, TK_equ, TK_less, TK_more;
+terminal String TK_and, TK_or, TK_not;
+terminal String TK_lpar, TK_rpar, TK_lbrc, TK_rbrc, TK_lbcs, TK_rbcs, TK_comma, TK_colon, TK_semicolon;
+
+// 4. No Terminales
+non terminal String INIT;
+
+// 5. Precedencia de Operadores
+
+// 6. Gramatica Libre de Contexto
+start with INIT;
+
+INIT ::= RW_execute;
