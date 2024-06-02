@@ -6,6 +6,11 @@
 package Language;
 
 import java_cup.runtime.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+import Components.Response;
+import Components.ErrorS;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -31,7 +36,8 @@ public class Parser extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\002\000\002\002\004\000\002\002\003" });
+    "\000\003\000\002\002\004\000\002\002\005\000\002\002" +
+    "\003" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -39,9 +45,10 @@ public class Parser extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\004\000\004\042\004\001\002\000\004\002\000\001" +
-    "\002\000\004\002\006\001\002\000\004\002\001\001\002" +
-    "" });
+    "\000\007\000\006\003\005\004\006\001\002\000\004\002" +
+    "\011\001\002\000\004\002\uffff\001\002\000\004\045\007" +
+    "\001\002\000\004\102\010\001\002\000\004\002\000\001" +
+    "\002\000\004\002\001\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -49,8 +56,9 @@ public class Parser extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\004\000\004\002\004\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001" });
+    "\000\007\000\004\002\003\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -89,7 +97,16 @@ public class Parser extends java_cup.runtime.lr_parser {
 
 
 
-
+    ArrayList<Response> errorsS = new ArrayList<>();
+    public void syntax_error(Symbol sym) {
+        errorsS.add(new Response(new ErrorS(sym.left,sym.right,sym.value,TOK.terminalNames[sym.sym])));
+    }
+    public void unrecovered_syntax_error(Symbol sym) throws java.lang.Exception {
+        errorsS.add(new Response("Error Sintáctico sin recuperar."));
+    }
+    public String getErrors() {
+        return errorsS.stream().map(Object::toString).collect(Collectors.joining("\n-> "));
+    }
 
 
 /** Cup generated class to encapsulate user supplied action code.*/
@@ -131,7 +148,16 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 1: // INIT ::= RW_execute 
+          case 1: // INIT ::= RW_int TK_int TK_semicolon 
+            {
+              String RESULT =null;
+
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("INIT",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+            }
+          return CUP$Parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 2: // INIT ::= error 
             {
               String RESULT =null;
 

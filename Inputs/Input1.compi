@@ -1,0 +1,6 @@
+int edad;
+if (edad==18) {
+    int a = 10;
+    int b = 20;
+    cout << "hola mundo";
+}
