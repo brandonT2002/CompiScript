@@ -1,11 +1,20 @@
 // 1. Package e importaciones
 package Language;
 import java_cup.runtime.*;
+import java.util.ArrayList;
+import Components.ErrorL;
 %%
 
 //  2. Configuraciones para el analisis (operaciones y declaraciones)
 %{
     // Codigo Java
+    ArrayList<ErrorL> errors = new ArrayList<>();
+    void addError(int line, int column, String character) {
+        errors.add(new ErrorL(line, column, character));
+    }
+    public ArrayList<ErrorL> getErrors() {
+        return errors;
+    }
 %}
 
 // Directivas
@@ -116,4 +125,4 @@ COMMENTM = [/][*][^*]*[*]+([^/*][^*]*[*]+)*[/]
 {UNUSED}            {}
 {COMMENTS}          {}
 {COMMENTM}          {}
-.                   {}
+.                   {addError(yyline, yychar, yytext());}
